@@ -1,0 +1,27 @@
+Question 1
+
+You have 3 processes in a system:
+1.       Process A should run every 4 seconds and takes 2 seconds to finish running.
+2.       Process B should run every 7 seconds and takes 4 seconds to finish running.
+3.       Process C should run every 11 seconds and takes 7 seconds to finish running.
+
+You have one timer that you can set to send a pulse every X seconds, while X is something you can determine. Each process has a connector to the timer and can receive all the pulses.  Assume it's a server, and you can check if the process is running or not.
+How would you make the processes run in their exact time?
+
+After grappling with this problem for a considerable amount of time, it appears this process schedule might be impossible to satisfy. Some schedulability theorems suggest this. Let C = time to finish running and P = the interval in which the process should continually run (its period). According to the Utilization-based Schedulability Test, the sum of the ratio C/P for each process must be less than n(2^(1/n) - 1) where n is the number of processes in order to be schedulable using a static-priority scheduling algorithm. In this case the sum of the ratios is 1.70 while the threshold is 0.78. The other option is an EDF (earliest deadline first) algorithm. For this scheduling algorithm, the sum of the ratios must be less than or equal to one in order to be schedulable. This is still unsatisfied in this case, as 1.70 > 1. Thus, it appears as if it is not possible to make the processes run in their exact time.
+
+
+Question 2
+
+Shazam is an app that is able to identify a song by putting the mobile device in hearing distance of a radio, in a club or any other place. The app shows the user the name of the song and the performing artist.
+How would you build such an app? In your answer, describe the building blocks of the product. No need to get into signal processing algorithms.
+
+The overall structure of the app would be as follows: A front-end that handles the visual presentation of the app, and has a button that is tapped to start capturing an audio clip. Then there would be a back end remote server that takes this audio clip, matches it to a song name and artist, and passes that information back to the front end, which displays it on the user’s device. 
+
+One important property of the app’s architecture would be the decoupling of the back-end and front-end code. This would enable the back end to communicate with the front end while their implementations could vary independently. This is what would enable the back end to be on a remote server. The benefit of this is that it would allow the app to be a much smaller file size on users’ devices. Also, it would make it much easier for the app to be cross-platform, as only a new front-end would be required for each platform. Whether the platform is Android or iOS, the front end would need an action button and audio recording capabilities.
+
+So the app would have to be able to transfer the data between the front end and back end. The front end would be sending a sound file and a user ID. 
+
+On the back-end server side, I would need to match the sound file to an artist and name. I would split up the information of all of the songs onto multiple servers, and query all of them in parallel. Also, I would check popular songs and songs similar to the user’s past history of searched songs first. This would help maximize the efficiency of the search.
+
+The server would then need to send back two strings, the song name and the artist name, to the appropriate user. It would use the user ID it was given to find the appropriate user. Then the front end would need the capabilities to accept this information and print it to the user’s screen.

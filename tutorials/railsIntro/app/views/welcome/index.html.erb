@@ -1,0 +1,12 @@
+<h1>Hello, Rails!</h1>
+<% @articles.each do |article| %>
+  <tr>
+    <iframe width="560" height="315" src= <%= article.link %> frameborder="0" allowfullscreen></iframe>
+  </tr>
+  
+  <td><%= link_to 'Destroy', article_path(article),
+          method: :delete,
+          data: { confirm: 'Are you sure?'  } %></td>
+</tr>
+<%= link_to 'My Blog', controller: 'articles' %>
+<%= link_to 'New article', new_article_path %>

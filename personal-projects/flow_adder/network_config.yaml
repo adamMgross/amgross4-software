@@ -1,0 +1,11 @@
+adcs:
+- {name: adc1, switchPort: 5, ip: '10.0.12.1', macAddr: 'bb:bb:bb:bb:bb:bb'}
+- {name: adc2, switchPort: 6, ip: '10.0.12.2', macAddr: 'cc:cc:cc:cc:cc:cc'}
+- {name: adc3, switchPort: 7, ip: '10.0.12.3', macAddr: 'dd:dd:dd:dd:dd:dd'}
+- {name: adc4, switchPort: 8, ip: '10.0.12.4', macAddr: 'ee:ee:ee:ee:ee:ee'}
+cluster: {macAddr: '11:11:11:11:11', numHashBits: 4}
+ovs: {bridgeName: 'br0', dpid: '0000000000000001'}
+switchPort: 4
+vlans:
+- {name: vlan1, switchPort: 3, tag: 3}
+server: {'macAddr': 'aa:aa:aa:aa:aa:aa', 'ip' : '10.0.11.1'}

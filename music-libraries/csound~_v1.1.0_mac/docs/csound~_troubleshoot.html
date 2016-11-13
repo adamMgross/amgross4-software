@@ -1,0 +1,216 @@
+<html>
+<head>
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<title>csound~ Troubleshooting</title>
+</head>
+
+<body bgcolor="#ffffff"      
+      text="#000000" 
+      link="#222288"
+      vlink="#444488" 
+      alink="#444488">
+
+<font size="2" face="tahoma">
+<a href="csound~.html">csound~</a> | <a href="csound~_images.html">Images</a> | <a href="csound~_install.html">Install</a>
+<p>
+
+<font size="5" face="arial, helvetica" color="#202d3d">
+<b><i>csound~ Troubleshooting</i></b></font>
+<p><p>
+
+<font size="3" face="tahoma">
+<a href="#error01"> MaxMSP can't find csound~. (Win/MacOSX)</a>
+<p><a href="#error02"> csound~ complains about missing .dll files. (Win)</a></p>
+<p><a href="#error03"> csound~ is running Csound4, but I want it to run Csound5. (MacOSX)</a></p>
+<p><a href="#error04"> csound~ says "failed to open csd file: no such file or directory". (Win/MacOSX)</a></p>
+<p><a href="#error05"> I'm getting error code 126. (Win)</a></p>
+<p><a href="#error06"> csound~ crashes when I send bang/start to it. (Win/MacOSX)</a></p>
+<p><a href="#error07"> I'm getting CPU spikes on my Intel Mac. (MacOSX)</a></p>
+<p><a href="#error08"> I'm getting error 14001 when loading csound~. (Win)</a></p>
+<p><a href="#error09"> csound~ doesn't load and doesn't give an error. (MacOSX)</a></p>
+<p><a href="#error10"> I'm getting the "python24.dll was not found" error. (Win)</a></p>
+<p><a href="#error11"> I'm getting strange crashes using Csound 5.07, 5.07.2, 5.08, 5.11.1 (Win)</a><font color=red> <-- new</font></p>
+<p><a href="#error12"> WARNING: could not open library... (Win)</a></p>
+<p><a href="#error13"> Error 998 loading external csound~. (Win)</a></p>
+<hr>
+<p>
+<font size="4" face="times"><b><a name="error01">MaxMSP can't find csound~. (Win/MacOSX)</a></b> 
+<pre><font size="2" face="tahoma">  1) Have you installed Csound5?
+
+  2) If you installed csound~.mxe or csound~.mxo while MaxMSP was running,
+     restart MaxMSP.
+
+  3) Make sure csound~.mxe or csound~.mxo is installed in your externals folder.
+
+     On Win with MaxMSP4.5: "C:\Program Files\Common Files\Cycling '74\externals\"
+     On Win with MaxMSP4.6: "C:\Program Files\Cycling '74\MaxMSP 4.6\Cycling '74\externals\"
+
+     On Mac OSX with MaxMSP4.5: "/Library/Application Support/Cycling '74/externals/"
+     On Mac OSX with MaxMSP4.6: "/Applications/MaxMSP 4.6/Cycling '74/externals/"
+</pre>
+<hr>
+<font size="4" face="times"><b><a name="error02">csound~ complains about missing .dll files. (Win)</a></b> 
+<pre><font size="2" face="tahoma">  1) Have you installed Csound5?
+
+  2) Are you environment variables set up correctly?
+
+     A good way to check is to open up a DOS prompt.  cd to some directory other
+     than the Csound5 bin directory.  Run the command "csound".  If that fails,
+     then your environment variables need to be set properly.
+
+     Right-click on "My Computer", select "Properties".  Switch to "Advanced" tab.
+     Click "Environment Variables" button.  Look for "PATH" and check to see if
+     your Csound5 bin directory has been appended to it.  Look for "OPCODEDIR" or
+     "OPCODEDIR64", depending on which version of Csound5 you installed.  If they
+     are not present, then add them.
+
+     When modifying the "PATH" environment variable, it's a good idea to modify
+     the user variable rather than the system variable.  
+
+  3) If you installed the 32bit version of csound~, then you must have 32bit Csound5 installed
+     in order for csound~ to run.  The same goes for 64bit csound~ and 64bit Csound5.  
+  
+     Consult the <a href="csound~_install.html">installation instructions</a> for tips on which Csound5 installers to use.
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error03">csound~ is running Csound4, but I want it to run Csound5. (MacOSX)</a></b> 	
+<pre><font size="2" face="tahoma">  csound~ cannot run Csound4.  Max is loading Matt Ingalls' csound~ rather than
+  my csound~.mxo.  To fix this problem, remove Matt Ingalls' csound~ object from
+  the externals directory.  If it's not there, then it is somewhere else within Max's search path.
+
+  Search all directories within Max's search path (including ones that you have added
+  via the Options->File Preferences... menu item).  Remove any files named "csound~".
+
+</pre>
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error04">csound~ says "failed to open csd file: no such file or directory". (Win/MacOSX)</a></b>
+<pre><font size="2" face="tahoma">  1) If you're using an absolute pathname in the "csound" message, then you have 
+     made a mistake.  Correct the pathname.
+
+  2) If you're using relative pathnames in the "csound" message, and the relative
+     pathname is correct, then the directory that contains your patch is within
+     Max's search path.  
+    
+     Move the directory containing your patch to another location outside Max's
+     search path, or use absolute pathnames in your "csound" message.
+
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error05">I'm getting error code 126. (Win)</a></b>
+<pre><font size="2" face="tahoma">  This problem is usually caused by dll files not being found.
+
+  1) Make sure the version of csound~ you are using is compatible with the version of
+     Csound5 that is installed.  See the installation instructions for details.
+
+  2) Navigate to your Csound\bin\ directory and look for csound32.dll.5.1 or
+     csound64.dll.5.1.  If you're using 32bit csound~, then csound32.dll.5.1
+     should be there.  If you're using 64bit csound~, then csound64.dll.5.1
+     should be there.
+
+</pre>
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error06">csound~ crashes when I send bang/start to it. (Win/MacOSX)</a></b>
+<pre><font size="2" face="tahoma">  If csound~ has been successfully loaded, but crashes when you send start/bang to
+  begin the performance, check to see if csound~.mxo or csound~.mxe is in the same
+  directory as your patch and csd/orc file.  If so, remove it and try again.
+
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error07">I'm getting CPU spikes on my Intel Mac.</a></b>
+<pre><font size="2" face="tahoma">  This is caused by the denormals problem usually associated with Intel CPU's.  When numbers
+  get really small, Intel CPU's tend to "spike".  This usually happens when you're using opcodes
+  that implement feedback (filters, reverb, flange, etc...).
+
+  Typically, you'll start out by feeding these opcodes with zeros (which are not denormals).
+  Then you'll feed them some nice chunky numbers (still not denormals).  Then you stop feeding
+  them chunky numbers, but the feedback loops within the opcodes continually generate smaller
+  and smaller numbers until they become denormals.  This is when the CPU starts to "spike".
+
+  Quick solution: use the <b>denorm</b> opcode before any opcodes that implement feedback loops.
+  <b>denorm</b> will mix very small numbers into your audio data to keep numbers from becoming
+  denormals.  Once should be enough if you have several offending opcodes chained together.
+
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error08">I'm getting error 14001 when loading csound~. (Win)</a></b>
+<pre><font size="2" face="tahoma">  This problem has been fixed; please download and install v1.0.1 again, or upgrade to a
+  later version.  
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error09">csound~ doesn't load and doesn't give an error. (MacOSX)</a></b>
+<pre><font size="2" face="tahoma">  This has been a problem for MaxMSP 4.5 users on PPC architecture.  I think I've solved
+  the problem.  Please download and install v1.0.1 again (or upgrade to a later version).
+
+  If you still have the same problem, navigate to /Library/Frameworks.  MaxAPI.framework and
+  MaxAudioAPI.framework should be there.  If not, they can be found in the <a href="http://www.cycling74.com/download/MaxMSP-4.5.5-MacSDK.dmg">4.5.5 SDK</a>.
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error10">I'm getting the "python24.dll was not found" error. (Win)</a></b>
+<pre><font size="2" face="tahoma">  This is not a fatal error; just click "OK" to continue working.  If you want to get rid
+  of this error message, download and install <a href="http://www.python.org/download/">Python v2.4</a>.
+</pre>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error11">I'm getting strange crashes using Csound 5.07, 5.07.2, 5.08, 5.11.1 (Win)</a></b>
+<font size="2" face="tahoma">
+<p>
+The crash is somehow related to the new Fluid opcodes.
+  In particular, when a Csound instance is destroyed, the Fluid opcodes do a little clean-up
+  (even if your csd/orc doesn't use Fluid).  This clean-up process is doing something that causes
+  a crash later.  For me, it happens when I click on a non-MaxMSP window.
+</p>
+  <b>The Quick Fix</b>: Delete fluidOpcodes.dll from the plugins or plugins64 directory. The dll file may be in "C:\Program Files\Csound\plugins"  or "C:\Program Files\Csound\plugins64".  
+<br>
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error12">WARNING: could not open library... (Win)</a></b>
+</p>
+<font size="2" face="tahoma">
+<p>
+These warnings have been a problem when using Csound 5.08.2 on Windows.  Upgrade to 5.09.2.
+</p>
+</font>
+
+<p>
+<hr>
+<font size="4" face="times"><b><a name="error13">Error 998 loading external csound~. (Win)</a></b>
+<font size="2" face="tahoma">
+<p>
+This error is specific to the combination of Max 5.0.4 and Csound 5.08.2 (floats).  Upgrade to 5.09.2.
+</p>
+<hr>
+<font size="2" face="tahoma">
+All software and music by Davis Pyon (dmpyon AT yahoo DOTKOM). 
+</font>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
